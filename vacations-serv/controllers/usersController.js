@@ -18,9 +18,8 @@ class usersController {
           let session = req.session;
           session.user = rows[0];
           console.log("session :", session);
-
-          console.log("session username:", session.user.userName);
-          res.send(rows[0]);
+          res.json(rows[0]);
+          console.log("session username:", session.user.user_name);
         }
       }
     );
@@ -47,13 +46,15 @@ class usersController {
             }
           );
         } else {
-          res.send("user name exists");
+          res.send([]);
         }
       }
     );
   }
 
   static logOut(req, res) {
+    console.log("req.session", req.session);
+
     req.session.destroy();
     console.log("session destroyed");
 

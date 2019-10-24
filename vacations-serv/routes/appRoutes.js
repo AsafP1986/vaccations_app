@@ -1,25 +1,24 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/auth");
+const adminAuth = require("../middleware/adminAuth");
 const vacController = require("../controllers/vacationsController");
 const usersController = require("../controllers/usersController");
 
 // Vacation actions routes
 
-// get all vacations
-router.get("/vacations", vacController.getAllVac);
-// get single vacation
-router.get("/vacations/:id", vacController.getSingleVac);
-// create post - private
-router.post("/vacations/", auth, vacController.AddVac);
-// delete post - private
-router.delete("/vacations/:id", auth, vacController.deleteVac);
-// update post - private
-router.put("/vacations/:id", auth, vacController.updateVac);
+// get vacations
+router.get("/vacations", auth, vacController.getAllVac);
+// create vacation - private
+router.post("/vacations", adminAuth, vacController.AddVac);
+// delete vacation - private
+router.delete("/vacations/:id", adminAuth, vacController.deleteVac);
+// update vacation - private
+router.put("/vacations/:id", adminAuth, vacController.updateVac);
 // follow vacation
-router.post("/vacations/:id/follow", auth, vacController.follow);
+router.post("/vacations/follow", auth, vacController.follow);
 // unfollow vacation
-router.post("/vacations/:id/unfollow", auth, vacController.unfollow);
+router.post("/vacations/unfollow", auth, vacController.unfollow);
 
 // User actions routes
 router.get("/", (req, res) => {

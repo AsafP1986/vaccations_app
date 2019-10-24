@@ -7,7 +7,6 @@ module.exports = function(req, res, next) {
     next();
   } else {
     console.log(" no session");
-    // next();
-    res.redirect("/users/login");
+    res.status(403).send("unAuthorised");
   }
 };
